@@ -7,7 +7,7 @@ function Header() {
         <AppBar position="fixed">
             <Toolbar>
                 <Typography variant="h6">
-                    Lista de Modelos
+                    Catálogo de Jogos
                 </Typography>
             </Toolbar>
         </AppBar>

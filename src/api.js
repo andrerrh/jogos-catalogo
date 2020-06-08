@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://tenis-backend.herokuapp.com'
+    baseURL: 'https://catalogo-games.herokuapp.com'
 })
 
 export default api;
