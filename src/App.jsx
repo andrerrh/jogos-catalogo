@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from './api';
 import Header from './header';
+import api from './api';
 import { 
     Container, 
     Table, 
@@ -17,12 +17,12 @@ import './style.css';
 
 function App() {
 
-    const [ lista, setLista ] = useState([]); // imutabilidade
+    const [ lista, setLista ] = useState([]); 
     const [ open, setOpen ] = useState(false);
-    const [ modelo, setModelo ] = useState('');
+    const [ jogos, setJogos ] = useState('');
 
     function loadData() { 
-        api.get('/modelo').then((response) => { 
+        api.get('/jogos').then((response) => { 
             const itens = response.data;
             setLista(itens);
         });
@@ -32,26 +32,25 @@ function App() {
 
     const openModal = () => setOpen(true);
 
-    // function closeModal() { setOpen(false); }
     const closeModal = () => setOpen(false);
 
-     function addModelo() { 
-         const name = modelo;
-         api.post('/modelo', { name: name }).then((response) => {
-            setModelo('');
+     function addJogos() { 
+         const name = jogos;
+         api.post('/jogos', { name: name }).then((response) => {
+            setJogos('');
             setOpen(false);
             loadData();
         })
      }
 
      function markAsDone(id) { 
-         api.patch(`/modelo/${id}/done`).then((response) => {
+         api.patch(`/jogos/${id}/done`).then((response) => {
              loadData()
          })
      }
 
-     function deleteModelo(id) {
-         api.delete(`/modelo/${id}`).then((response) => { 
+     function deleteJogos(id) {
+         api.delete(`/jogos/${id}`).then((response) => { 
             loadData()
          })
      }
@@ -70,7 +69,7 @@ function App() {
                             <input type="checkbox" checked={item.done} onChange={() => markAsDone(item.id)}/>
                         </TableCell>
                         <TableCell>
-                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteModelo(item.id)}>Apagar</Button>
+                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteJogos(item.id)}>Apagar</Button>
                         </TableCell>
                     </TableRow>
                 ))}
@@ -84,27 +83,27 @@ function App() {
             </Button>
         </Container>
         <Dialog open={open} onClose={closeModal} fullWidth={true} maxWidth="sm">
-            <DialogTitle id="form-dialog-title">Novo Modelo</DialogTitle>
+            <DialogTitle id="form-dialog-title">Novo Jogos</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Digite o modelo que pretende adicionar.
+                    Digite o jogo que deseja adicionar.
                 </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Modelo"
+                    label="Jogos"
                     type="email"
                     fullWidth
-                    value={modelo}
-                    onChange={e => setModelo(e.target.value)}
+                    value={jogos}
+                    onChange={e => setJogos(e.target.value)}
                 />
             </DialogContent>
             <DialogActions>
                 <Button onClick={closeModal} color="primary">
                     Cancelar
                 </Button>
-                <Button onClick={addModelo} color="primary">
+                <Button onClick={addJogos} color="primary">
                     Salvar
                 </Button>
             </DialogActions>
