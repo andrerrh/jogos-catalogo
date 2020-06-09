@@ -65,10 +65,10 @@ function App() {
                 {lista.map(item => (
                     <TableRow key={item.id}>
                         <TableCell>{item.id}</TableCell>
-                        <TableCell>{item.name}</TableCell>
-                        <TableCell>
-                            <input type="checkbox" checked={item.done} onChange={() => markAsDone(item.id)}/>
-                        </TableCell>
+                        <TableCell>{item.nome}</TableCell>
+                        <TableCell>{item.categoria}</TableCell>
+                        <TableCell>{item.desenvolvedora}</TableCell>
+                        <TableCell>{item.dataLancamento}</TableCell>
                         <TableCell>
                             <Button variant="outlined" size="small" color="secondary" onClick={() => deleteJogo(item.id)}>Apagar</Button>
                         </TableCell>
