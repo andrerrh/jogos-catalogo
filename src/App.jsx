@@ -69,7 +69,7 @@ function App() {
                             <input type="checkbox" checked={item.done} onChange={() => markAsDone(item.id)}/>
                         </TableCell>
                         <TableCell>
-                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteTarefa(item.id)}>Apagar</Button>
+                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteJogos(item.id)}>Apagar</Button>
                         </TableCell>
                     </TableRow>
                 ))}
