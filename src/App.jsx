@@ -22,7 +22,7 @@ function App() {
     const [ jogo, setJogo ] = useState('');
 
     function loadData() { 
-        api.get('/jogo').then((response) => { 
+        api.get('/jogos').then((response) => { 
             const itens = response.data;
             setLista(itens);
         });
@@ -37,7 +37,7 @@ function App() {
 
      function addJogo() { 
          const name = jogo;
-         api.post('/jogo', { name: name }).then((response) => {
+         api.post('/jogos', { name: name }).then((response) => {
             setJogo('');
             setOpen(false);
             loadData();
@@ -45,13 +45,13 @@ function App() {
      }
 
      function markAsDone(id) { 
-         api.patch(`/jogo/${id}/done`).then((response) => {
+         api.patch(`/jogos/${id}/done`).then((response) => {
              loadData()
          })
      }
 
      function deleteJogo(id) {
-         api.delete(`/jogo/${id}`).then((response) => { 
+         api.delete(`/jogos/${id}`).then((response) => { 
             loadData()
          })
      }
