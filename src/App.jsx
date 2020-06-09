@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
 import api from './api';
 import Header from './header';
 import { 
@@ -17,12 +17,12 @@ import './style.css';
 
 function App() {
 
-    const [ lista, setLista ] = useState([]); 
+    const [ lista, setLista ] = useState([]); // imutabilidade
     const [ open, setOpen ] = useState(false);
-    const [ jogos, setJogos ] = useState('');
+    const [ jogo, setJogo ] = useState('');
 
     function loadData() { 
-        api.get('/jogos').then((response) => { 
+        api.get('/jogo').then((response) => { 
             const itens = response.data;
             setLista(itens);
         });
@@ -32,25 +32,26 @@ function App() {
 
     const openModal = () => setOpen(true);
 
+    // function closeModal() { setOpen(false); }
     const closeModal = () => setOpen(false);
 
-     function addJogos() { 
-         const name = jogos;
-         api.post('/jogos', { name: name }).then((response) => {
-            setJogos('');
+     function addJogo() { 
+         const name = jogo;
+         api.post('/jogo', { name: name }).then((response) => {
+            setJogo('');
             setOpen(false);
             loadData();
         })
      }
 
      function markAsDone(id) { 
-         api.patch(`/jogos/${id}/done`).then((response) => {
+         api.patch(`/jogo/${id}/done`).then((response) => {
              loadData()
          })
      }
 
-     function deleteJogos(id) {
-         api.delete(`/jogos/${id}`).then((response) => { 
+     function deleteJogo(id) {
+         api.delete(`/jogo/${id}`).then((response) => { 
             loadData()
          })
      }
@@ -61,15 +62,15 @@ function App() {
         <Header />
         <Container maxWidth="lg" className="container"> 
             <Table>
-            {lista.map(item => (
+                {lista.map(item => (
                     <TableRow key={item.id}>
                         <TableCell>{item.id}</TableCell>
-                        <TableCell>{item.nome}</TableCell>
-                        <TableCell>{item.categoria}</TableCell>
-                        <TableCell>{item.desenvolvedora}</TableCell>
-                        <TableCell>{item.dataLancamento}</TableCell>
+                        <TableCell>{item.name}</TableCell>
                         <TableCell>
-                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteJogos(item.id)}>Apagar</Button>
+                            <input type="checkbox" checked={item.done} onChange={() => markAsDone(item.id)}/>
+                        </TableCell>
+                        <TableCell>
+                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteJogo(item.id)}>Apagar</Button>
                         </TableCell>
                     </TableRow>
                 ))}
@@ -83,7 +84,7 @@ function App() {
             </Button>
         </Container>
         <Dialog open={open} onClose={closeModal} fullWidth={true} maxWidth="sm">
-            <DialogTitle id="form-dialog-title">Novo Jogo</DialogTitle>
+            <DialogTitle id="form-dialog-title">Nova Jogo</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Digite o jogo que deseja adicionar.
@@ -92,18 +93,18 @@ function App() {
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Jogos"
+                    label="Jogo"
                     type="email"
                     fullWidth
-                    value={jogos}
-                    onChange={e => setJogos(e.target.value)}
+                    value={jogo}
+                    onChange={e => setJogo(e.target.value)}
                 />
             </DialogContent>
             <DialogActions>
                 <Button onClick={closeModal} color="primary">
                     Cancelar
                 </Button>
-                <Button onClick={addJogos} color="primary">
+                <Button onClick={addJogo} color="primary">
                     Salvar
                 </Button>
             </DialogActions>
