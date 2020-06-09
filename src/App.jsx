@@ -61,15 +61,15 @@ function App() {
         <Header />
         <Container maxWidth="lg" className="container"> 
             <Table>
-                {lista.map(item => (
+            {lista.map(item => (
                     <TableRow key={item.id}>
                         <TableCell>{item.id}</TableCell>
-                        <TableCell>{item.nome}</TableCell>
-                        <TableCell>{item.categoria}</TableCell>
-                        <TableCell>{item.desenvolvedora}</TableCell>
-                        <TableCell>{item.dataLancamento}</TableCell>
+                        <TableCell>{item.name}</TableCell>
                         <TableCell>
-                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteJogos(item.id)}>Apagar</Button>
+                            <input type="checkbox" checked={item.done} onChange={() => markAsDone(item.id)}/>
+                        </TableCell>
+                        <TableCell>
+                            <Button variant="outlined" size="small" color="secondary" onClick={() => deleteTarefa(item.id)}>Apagar</Button>
                         </TableCell>
                     </TableRow>
                 ))}
