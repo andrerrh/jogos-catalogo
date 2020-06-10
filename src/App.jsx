@@ -27,7 +27,6 @@ function App() {
     const [ categoria, setCategoria] = useState('');
     const [ desenvolvedora, setDesenvolvedora] = useState('');
     const [ dataLancamento, setDataLancamento] = useState('');
-    const [ dataString, setDataString] = useState('')
 
     function loadData() { 
         api.get('/jogos').then((response) => { 
@@ -48,9 +47,6 @@ function App() {
          setCategoria(item.categoria);
          setDesenvolvedora(item.desenvolvedora);
          setDataLancamento(item.data_lancamento);
-
-        const dataTexto = item.data_lancamento.toString().slice(0,10)
-        setDataString(dataTexto)
      }
 
     const closeUpdateModal = () => setUpdateModalOpen(false);
@@ -141,7 +137,6 @@ function App() {
                     label="Jogo"
                     type="text"
                     fullWidth
-                    value={jogo}
                     onChange={e => setJogo(e.target.value)}
                 />
                 <TextField
@@ -150,7 +145,6 @@ function App() {
                     label="Categoria"
                     type="text"
                     fullWidth
-                    value={categoria}
                     onChange={e => setCategoria(e.target.value)}
                 />
                 <TextField
@@ -159,7 +153,6 @@ function App() {
                     label="Desenvolvedora"
                     type="text"
                     fullWidth
-                    value={desenvolvedora}
                     onChange={e => setDesenvolvedora(e.target.value)}
                 />
                 <TextField
@@ -168,7 +161,6 @@ function App() {
                     label=""
                     type="date"
                     fullWidth
-                    value={Moment.utc(dataLancamento).format("yyyy-MM-dd")}
                     onChange={e => setDataLancamento(e.target.value)}
                 />
             </DialogContent>
@@ -177,7 +169,7 @@ function App() {
                     Cancelar
                 </Button>
                 <Button onClick={addJogo} color="primary">
-                    Salvar
+                    Adicionar
                 </Button>
             </DialogActions>
         </Dialog>
@@ -231,7 +223,7 @@ function App() {
                     label=""
                     type="date"
                     fullWidth
-                    value={dataString}
+                    value={dataLancamento}
                     onChange={e => setDataLancamento(e.target.value)}
                 />
             </DialogContent>
