@@ -27,6 +27,7 @@ function App() {
     const [ categoria, setCategoria] = useState('');
     const [ desenvolvedora, setDesenvolvedora] = useState('');
     const [ dataLancamento, setDataLancamento] = useState('');
+    const [ dataString, setDataString] = useState('');
 
     function loadData() { 
         api.get('/jogos').then((response) => { 
@@ -47,6 +48,9 @@ function App() {
          setCategoria(item.categoria);
          setDesenvolvedora(item.desenvolvedora);
          setDataLancamento(item.data_lancamento);
+
+        const dataTexto = item.data_lancamento.toString().slice(0,10);
+        setDataString(dataTexto);
      }
 
     const closeUpdateModal = () => setUpdateModalOpen(false);
@@ -223,8 +227,12 @@ function App() {
                     label=""
                     type="date"
                     fullWidth
-                    value={dataLancamento}
-                    onChange={e => setDataLancamento(e.target.value)}
+                    value={dataString}
+                    onChange={e => {
+                        setDataLancamento(e.target.value) //Utilizado no formato de data para adicionar ao bd
+                        setDataString(e.target.value) //Utiliza o formato string para poder represtar no campo a data selecionada para o usuário
+                        }
+                    }
                 />
             </DialogContent>
             <DialogActions>
