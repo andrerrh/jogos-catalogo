@@ -27,6 +27,7 @@ function App() {
     const [ categoria, setCategoria] = useState('');
     const [ desenvolvedora, setDesenvolvedora] = useState('');
     const [ dataLancamento, setDataLancamento] = useState('');
+    const [ dataString, setDataString] = useState('')
 
     function loadData() { 
         api.get('/jogos').then((response) => { 
@@ -47,7 +48,11 @@ function App() {
          setCategoria(item.categoria);
          setDesenvolvedora(item.desenvolvedora);
          setDataLancamento(item.data_lancamento);
+
+        const dataTexto = item.data_lancamento.toString().slice(0,10)
+        setDataString(dataTexto)
      }
+
     const closeUpdateModal = () => setUpdateModalOpen(false);
 
      function addJogo() { 
@@ -92,6 +97,13 @@ function App() {
         <Header />
         <Container maxWidth="lg" className="container"> 
             <Table>
+                <TableHead>
+                    <TableCell>ID</TableCell>
+                    <TableCell>Nome</TableCell>
+                    <TableCell>Categoria</TableCell>
+                    <TableCell>Desenvolvedora</TableCell>
+                    <TableCell>Data de lançamento</TableCell>
+                </TableHead>
                 {lista.map(item => (
                     <TableRow key={item.id}>
                         <TableCell>{item.id}</TableCell>
@@ -156,7 +168,7 @@ function App() {
                     label=""
                     type="date"
                     fullWidth
-                    value={dataLancamento}
+                    value={Moment.utc(dataLancamento).format("yyyy-MM-dd")}
                     onChange={e => setDataLancamento(e.target.value)}
                 />
             </DialogContent>
@@ -169,6 +181,7 @@ function App() {
                 </Button>
             </DialogActions>
         </Dialog>
+
         <Dialog open={updateModalOpen} onClose={closeUpdateModal} fullWidth={true} maxWidth="sm">
             <DialogTitle id="form-dialog-title">Editar o Jogo</DialogTitle>
             <DialogContent>
@@ -218,7 +231,7 @@ function App() {
                     label=""
                     type="date"
                     fullWidth
-                    value={dataLancamento}
+                    value={dataString}
                     onChange={e => setDataLancamento(e.target.value)}
                 />
             </DialogContent>
