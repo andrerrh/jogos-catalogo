@@ -49,7 +49,7 @@ function App() {
          setDesenvolvedora(item.desenvolvedora);
          setDataLancamento(item.data_lancamento);
 
-        const dataTexto = item.data_lancamento.toString().slice(0,10);
+        const dataTexto = item.data_lancamento.toString().slice(0,10); //Convertendo a data em string para demonstrar no update, visto que o mesmo só aceita strings na chave 'value'
         setDataString(dataTexto);
      }
 
@@ -128,6 +128,7 @@ function App() {
                 Adicionar
             </Button>
         </Container>
+        {/* modal de adição de um novo jogo */}
         <Dialog open={open} onClose={closeModal} fullWidth={true} maxWidth="sm">
             <DialogTitle id="form-dialog-title">Novo Jogo</DialogTitle>
             <DialogContent>
@@ -177,7 +178,7 @@ function App() {
                 </Button>
             </DialogActions>
         </Dialog>
-
+         {/* modal de edição de um jogo existente*/}
         <Dialog open={updateModalOpen} onClose={closeUpdateModal} fullWidth={true} maxWidth="sm">
             <DialogTitle id="form-dialog-title">Editar o Jogo</DialogTitle>
             <DialogContent>
